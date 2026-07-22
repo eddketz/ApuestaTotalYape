@@ -1,0 +1,25 @@
+original:
+
+<section id="hero">
+    <h1>Encuentra tu hogar ideal</h1>
+    <p>Las mejores propiedades en las mejores ubicaciones</p>
+    <button class="cta-button">Ver Propiedades</button>
+  </section>
+
+
+
+
+
+
+<section class="container"> 
+    <div class="slider-wrapper"> 
+      <div class="slider"> 
+        <img id="slide-1" src="img/img1.jpg" /> 
+	<img id="slide-2" src="img/img1.jpg" />
+	<img id="slide-3" src="img/img1.jpg" />
+      </div> 
+    </div> 
+  </section>
+
+
+
