@@ -132,17 +132,17 @@ nav{
 
 nav ul{
 
-    max-width:var(--container);
+    max-width: var(--container);
 
-    margin:auto;
+    margin: auto;
 
-    display:flex;
+    display: flex;
 
-    justify-content:center;
+    justify-content: center;
 
-    gap:35px;
+    gap: 35px;
 
-    padding:18px 0;
+    padding: 18px 0;
 
 }
 
@@ -248,4 +248,79 @@ nav a:hover{
 
     }
 
+}
+
+/* ===========================
+   MENU DESPLEGABLE
+=========================== */
+
+.dropdown{
+    position: relative;
+}
+
+.dropdown .submenu{
+
+    display: none;
+
+    position: absolute;
+
+    top: 100%;
+    left: 0;
+
+    background: white;
+
+    min-width: 220px;
+
+    padding: 8px 0;
+
+    margin: 0;
+
+    border: 2px solid #2e8b57;
+
+    list-style: none;
+
+    box-shadow: 0 10px 20px rgba(0,0,0,.15);
+
+    border-radius: 8px;
+
+    z-index: 1000;
+
+    /* MUY IMPORTANTE */
+    flex-direction: column;
+}
+
+.dropdown .submenu li{
+
+    width: 100%;
+}
+
+.dropdown .submenu li a{
+
+    display: block;
+
+    padding: 10px 18px;
+
+    color: #111;
+
+    font-weight: 600;
+
+    transition: all .3s ease;
+
+}
+
+.dropdown .submenu li a:hover{
+
+    background: #1faa59;
+
+    color: white;
+
+    transition: .3s;
+
+    box-shadow: 0 0 12px rgba(31,170,89,.7);
+
+}
+
+.dropdown:hover .submenu{
+
+    display: block;
 }
