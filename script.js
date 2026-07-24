@@ -34,8 +34,13 @@ const fecha =
 document.getElementById("fecha").textContent = fecha;
 
 fetch("https://api.countapi.xyz/hit/apuestatotalyape/visitas")
-  .then(response => response.json())
-  .then(data => {
-      document.getElementById("contador").textContent =
-          "👥 Visitantes: " + data.value.toLocaleString();
-  });
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById("contador").textContent =
+            "👥 Visitantes: " + data.value.toLocaleString();
+    })
+    .catch(error => {
+        console.log(error);
+        document.getElementById("contador").textContent =
+            "👥 Error al cargar";
+    });
