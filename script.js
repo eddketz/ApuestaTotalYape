@@ -11,7 +11,7 @@ const clienteSupabase = window.supabase.createClient(
 );
 
 // ===============================
-// FECHA
+// FECHA ACTUAL
 // ===============================
 
 const dias = [
@@ -60,7 +60,6 @@ async function registrarVisita() {
 
     try {
 
-        // Obtener información del visitante
         const info = await fetch("https://ipapi.co/json/")
             .then(res => res.json());
 
@@ -76,37 +75,192 @@ async function registrarVisita() {
             ]);
 
         if (error) {
+
             console.error("Error al registrar visita:", error);
+
         } else {
+
             console.log("✅ Visita registrada");
+
         }
 
     } catch (err) {
+
         console.error("Error:", err);
+
     }
 
 }
 
 // ===============================
-// CONTADOR
+// MOSTRAR ESTADÍSTICAS
 // ===============================
 
-async function mostrarContador() {
+async function mostrarEstadisticas() {
 
-    const { count, error } = await clienteSupabase
+    const { data, error } = await clienteSupabase
         .from("estadisticas_visitas")
-        .select("*", {
-            count: "exact",
-            head: true
-        });
+        .select("*")
+        .order("fecha", { ascending: true });
 
     if (error) {
+
         console.error(error);
         return;
+
     }
 
+    // ==========================
+    // TOTAL
+    // ==========================
+
+    const total = data.length;
+
     document.getElementById("contador").textContent =
-        "👥 Visitantes: " + count;
+        "👥 Total de visitas: " + total;
+
+    document.getElementById("total").textContent =
+        total;
+
+    // ==========================
+    // HOY
+    // ==========================
+
+    const ahora = new Date();
+
+    const visitasHoy = data.filter(v => {
+
+        const f = new Date(v.fecha);
+
+        return (
+
+            f.getDate() === ahora.getDate() &&
+            f.getMonth() === ahora.getMonth() &&
+            f.getFullYear() === ahora.getFullYear()
+
+        );
+
+    });
+
+    document.getElementById("hoy").textContent =
+        visitasHoy.length;
+
+    // ==========================
+    // MES
+    // ==========================
+
+    const visitasMes = data.filter(v => {
+
+        const f = new Date(v.fecha);
+
+        return (
+
+            f.getMonth() === ahora.getMonth() &&
+            f.getFullYear() === ahora.getFullYear()
+
+        );
+
+    });
+
+    document.getElementById("mes").textContent =
+        visitasMes.length;
+
+    // ==========================
+    // AÑO
+    // ==========================
+
+    const visitasAnio = data.filter(v => {
+
+        const f = new Date(v.fecha);
+
+        return f.getFullYear() === ahora.getFullYear();
+
+    });
+
+    document.getElementById("anio").textContent =
+        visitasAnio.length;
+
+    // ==========================
+    // RANKING PAÍSES
+    // ==========================
+
+    const paises = {};
+
+    data.forEach(v => {
+
+        const pais = v.pais || "Desconocido";
+
+        paises[pais] = (paises[pais] || 0) + 1;
+
+    });
+
+    const rankingPaises = Object.entries(paises)
+        .sort((a, b) => b[1] - a[1]);
+
+    let htmlPaises = "";
+
+    rankingPaises.forEach(([pais, visitas]) => {
+
+        htmlPaises += `
+        <tr>
+            <td>${pais}</td>
+            <td>${visitas}</td>
+        </tr>
+        `;
+
+    });
+
+    document.getElementById("rankingPaises").innerHTML =
+        htmlPaises;
+
+    // ==========================
+    // RANKING CIUDADES
+    // ==========================
+
+    const ciudades = {};
+
+    data.forEach(v => {
+
+        const ciudad = v.ciudad || "Desconocida";
+
+        ciudades[ciudad] = (ciudades[ciudad] || 0) + 1;
+
+    });
+
+    const rankingCiudades = Object.entries(ciudades)
+        .sort((a, b) => b[1] - a[1]);
+
+    let htmlCiudades = "";
+
+    rankingCiudades.forEach(([ciudad, visitas]) => {
+
+        htmlCiudades += `
+        <tr>
+            <td>${ciudad}</td>
+            <td>${visitas}</td>
+        </tr>
+        `;
+
+    });
+
+    document.getElementById("rankingCiudades").innerHTML =
+        htmlCiudades;
+
+    // ==========================
+    // ÚLTIMA VISITA
+    // ==========================
+
+    if (data.length > 0) {
+
+        const ultima = data[data.length - 1];
+
+        document.getElementById("ultimaVisita").innerHTML = `
+            <strong>${ultima.pais}</strong><br>
+            ${ultima.ciudad}<br>
+            ${new Date(ultima.fecha).toLocaleString()}
+        `;
+
+    }
 
 }
 
@@ -116,8 +270,102 @@ async function mostrarContador() {
 
 (async () => {
 
+    // Registrar la visita
     await registrarVisita();
 
-    await mostrarContador();
+    // Mostrar las estadísticas
+    await mostrarEstadisticas();
 
 })();
+
+// ===============================
+// ACTUALIZACIÓN AUTOMÁTICA
+// ===============================
+
+// Actualiza las estadísticas cada 30 segundos
+setInterval(async () => {
+
+    await mostrarEstadisticas();
+
+}, 30000);
+
+// ===============================
+// MODAL ESTADÍSTICAS
+// ===============================
+
+const modal = document.getElementById("modalEstadisticas");
+
+const abrir = document.getElementById("abrirEstadisticas");
+
+const cerrar = document.getElementById("cerrarModal");
+
+// Abrir ventana
+abrir.addEventListener("click", function (e) {
+
+    e.preventDefault();
+
+    modal.style.display = "flex";
+
+    mostrarEstadisticas();
+
+});
+
+// Cerrar con la X
+cerrar.addEventListener("click", function () {
+
+    modal.style.display = "none";
+
+});
+
+// Cerrar haciendo clic fuera
+window.addEventListener("click", function (e) {
+
+    if (e.target === modal) {
+
+        modal.style.display = "none";
+
+    }
+
+});
+
+
+/* =========================================
+   NAVEGACIÓN DE PESTAÑAS ATY
+========================================= */
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const botones = document.querySelectorAll(".aty-tab");
+    const paneles = document.querySelectorAll(".aty-panel");
+
+    botones.forEach(function (boton) {
+
+        boton.addEventListener("click", function () {
+
+            const destino = boton.dataset.tab;
+
+            botones.forEach(function (b) {
+                b.classList.remove("activo");
+                b.setAttribute("aria-selected", "false");
+            });
+
+            paneles.forEach(function (panel) {
+                panel.classList.remove("activo");
+                panel.hidden = true;
+            });
+
+            boton.classList.add("activo");
+            boton.setAttribute("aria-selected", "true");
+
+            const panelActivo = document.getElementById(destino);
+
+            if (panelActivo) {
+                panelActivo.hidden = false;
+                panelActivo.classList.add("activo");
+            }
+
+        });
+
+    });
+
+});
