@@ -8,6 +8,8 @@
 
     <title>ApuestaTotalYape</title>
 
+    <!-- LOGO DE LA PESTAÑA -->
+    <link rel="icon" type="image/png" href="./img/favicon.png?v=2">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,6 +18,7 @@
 
     <!-- CSS -->
     <link rel="stylesheet" href="styles.css">
+    
 
 </head>
 
@@ -32,65 +35,109 @@
             <div class="date" id="fecha"></div>
 
             <div class="logo">
+                <img src="img/favicon.png" alt="Logo ATY">
                 <h1>Apuesta Total Yape</h1>
             </div>
 
             <div class="account">
-    <span id="contador">👥 Visitantes: Cargando...</span>
+
+    <span id="contador">
+        👥 Total de visitas: Cargando...
+    </span>
+
+    <div class="menu-estadisticas">
+
+        <span class="btn-detalles">
+            📊 Más detalles ▼
+        </span>
+
+        <div class="submenu-estadisticas">
+
+            <div class="detalle">
+                📅 Hoy:
+                <strong id="hoy">0</strong>
+            </div>
+
+            <div class="detalle">
+                📆 Mes:
+                <strong id="mes">0</strong>
+            </div>
+
+            <div class="detalle">
+                🗓️ Año:
+                <strong id="anio">0</strong>
+            </div>
+
+            <hr>
+
+            <h4>🌍 Países</h4>
+
+            <table class="tabla-mini">
+                <tbody id="rankingPaises"></tbody>
+            </table>
+
+            <hr>
+
+            <h4>🏙️ Ciudades</h4>
+
+            <table class="tabla-mini">
+                <tbody id="rankingCiudades"></tbody>
+            </table>
+
+            <hr>
+
+            <h4>🕒 Última visita</h4>
+
+            <div id="ultimaVisita"></div>
+
+        </div>
+
+    </div>
+
 </div>
 
         </div>
 
         <nav>
-
     <ul>
 
-        <li><a href="#">Inicio</a></li>
+        <li><a href="#inicio">Inicio</a></li>
 
         <li class="dropdown">
-
             <a href="#">Streamers ▼</a>
 
             <ul class="submenu">
-
                 <li>
-                    <a href="https://www.youtube.com/@DavooXeneize" target="_blank">
+                    <a href="https://kick.com/davooxeneize" target="_blank" rel="noopener noreferrer">
                         Davoo Xeneize
                     </a>
                 </li>
 
                 <li>
-                    <a href="https://www.youtube.com/@LaCobra" target="_blank">
+                    <a href="https://kick.com/lacobraaa" target="_blank" rel="noopener noreferrer">
                         LaCobra
                     </a>
                 </li>
-
             </ul>
-
         </li>
 
         <li class="dropdown">
-
     <a href="#">Como Apostar ▼</a>
 
     <ul class="submenu">
+        <li><a href="#deposito">Depósito</a></li>
 
-        <li><a href="#">Depósito</a></li>
-
-        <li><a href="#">Cuotas</a></li>
-
-        <li><a href="#">Estadísticas</a></li>
-
-        <li><a href="#">Límite</a></li>
-
+        <li>
+            <a href="#cuotas">
+                Cuotas - Estadísticas - Límite
+            </a>
+        </li>
     </ul>
-
 </li>
-        
-        <li><a href="#">Contactanos</a></li>
+
+        <li><a href="#contactanos">Contáctanos</a></li>
 
     </ul>
-
 </nav>
 
     </header>
@@ -99,90 +146,413 @@
     <!-- CONTENIDO -->
     <!-- ========================================= -->
 
-    <main>
+    
+<main id="inicio" class="contenido-aty">
 
-        <!-- HERO -->
+   
+<!-- 1. DEPOSITOS -->
+<section id="deposito" class="seccion">
 
-        <section class="hero">
+    <span class="etiqueta">APUESTA TOTAL YAPE</span>
 
-            <div class="hero-text">
+    <h2>Realiza tu depósito</h2>
 
-                <span class="category">
-                    Tecnología
-                </span>
+    <p>
+        Sigue las siguientes indicaciones para realizar tu depósito
+        mediante Yape.
+    </p>
 
-                <h2>
-                    El futuro de la inteligencia artificial ya está aquí
-                </h2>
+    <div class="deposito-contenido">
 
-                <p>
-                    Una mirada al impacto que tendrán los nuevos modelos de IA
-                    durante los próximos años. Expertos consideran que la
-                    próxima generación de inteligencia artificial cambiará
-                    completamente la forma de trabajar, estudiar y comunicarnos.
-                </p>
+        <div class="deposito-instrucciones">
+
+            <h3>¿Cómo depositar?</h3>
+
+            <ol>
+                <li>Abre la aplicación Yape desde tu celular.</li>
+                <li>Escanea el código QR que aparece en esta sección.</li>
+                <li>Verifica cuidadosamente el destinatario y el importe.</li>
+                <li>Realiza el pago únicamente si los datos son correctos.</li>
+                <li>Conserva tu comprobante de pago.</li>
+            </ol>
+
+            <p class="aviso-deposito">
+                <strong>Importante:</strong>
+                Antes de realizar cualquier operación, verifica que
+                el QR y el destinatario sean los oficiales.
+            </p>
+
+        </div>
+
+        <div class="deposito-qr">
+
+            <h3>Escanea nuestro QR</h3>
+
+            <img
+                src="img/qr-yape.jpg"
+                alt="Código QR de Yape"
+                class="qr-imagen"
+            >
+
+            <p>Escanea el código desde tu aplicación Yape.</p>
+
+            
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- VENTANA DEL QR -->
+<div class="modal-qr" id="modalQR">
+
+    <div class="modal-qr-contenido">
+
+        <button class="cerrar-qr" id="cerrarQR" aria-label="Cerrar">
+            &times;
+        </button>
+
+        <h2>Mi QR de Yape</h2>
+
+        <img src="img/qr-yape.png" alt="Código QR de Yape">
+
+        <p>Escanea el código QR desde tu aplicación Yape.</p>
+
+    </div>
+
+</div>
+
+   
+
+<!-- =========================================
+     ATY - CUOTAS, ESTADÍSTICA Y LÍMITE
+========================================= -->
+
+<section id="cuotas" class="seccion cuotas">
+
+    <!-- PESTAÑAS -->
+    <div class="aty-tabs" role="tablist" aria-label="Secciones ATY">
+
+        <button class="aty-tab activo"
+                type="button"
+                role="tab"
+                aria-selected="true"
+                aria-controls="panel-cuotas"
+                data-tab="panel-cuotas">
+            Cuotas
+        </button>
+
+        <button class="aty-tab"
+                type="button"
+                role="tab"
+                aria-selected="false"
+                aria-controls="panel-estadistica"
+                data-tab="panel-estadistica">
+            Estadística
+        </button>
+
+        <button class="aty-tab"
+                type="button"
+                role="tab"
+                aria-selected="false"
+                aria-controls="panel-limite"
+                data-tab="panel-limite">
+            Límite
+        </button>
+
+    </div>
+
+    <!-- =====================================
+         PESTAÑA 1: CUOTAS
+    ====================================== -->
+
+    <div id="panel-cuotas" class="aty-panel activo" role="tabpanel">
+
+        <div class="pronosticos-titulo">
+            <span>01 / PRONÓSTICOS</span>
+            <h2>Mercados de la apuesta</h2>
+        </div>
+
+        <!-- APUESTA 01 -->
+
+        <article class="apuesta-card">
+
+            <div class="apuesta-cabecera">
+                <span>APUESTA 01</span>
+                <small>FÚTBOL 11</small>
+            </div>
+
+            <h3>¿Davoo acertará 15 de 19 juegos en el Fútbol 11?</h3>
+
+            <div class="apuesta-opciones">
+
+                <div class="apuesta-opcion">
+                    <span>Sí</span>
+                    <strong>3.00</strong>
+                </div>
+
+                <div class="apuesta-opcion">
+                    <span>No</span>
+                    <strong>1.50</strong>
+                </div>
+
+                <div class="apuesta-opcion opcion-empate">
+                    <span>
+                        Empate
+                        <small>Devolverá puntos</small>
+                    </span>
+                    <strong>4.00</strong>
+                </div>
 
             </div>
 
-            <div class="hero-image">
+        </article>
 
-                <img src="img/principal.jpg" alt="Noticia principal">
+        <!-- APUESTA 02 -->
+
+        <article class="apuesta-card">
+
+            <div class="apuesta-cabecera">
+                <span>APUESTA 02</span>
+                <small>FUTFACTOS</small>
+            </div>
+
+            <h3>¿Llegará a FUTFACTOS?</h3>
+
+            <div class="apuesta-opciones dos-opciones">
+
+                <div class="apuesta-opcion">
+                    <span>Sí</span>
+                    <strong>3.00</strong>
+                </div>
+
+                <div class="apuesta-opcion">
+                    <span>No</span>
+                    <strong>1.50</strong>
+                </div>
 
             </div>
 
-        </section>
+        </article>
 
-        <!-- ========================================= -->
-        <!-- NOTICIAS -->
-        <!-- ========================================= -->
+        <!-- APUESTA 03 -->
 
-        <section class="news">
+        <article class="apuesta-card">
 
-            <article class="card">
+            <div class="apuesta-cabecera">
+                <span>APUESTA 03</span>
+                <small>DESEMPATE</small>
+            </div>
 
-                <img src="img/noticia1.jpg">
+            <h3>¿Llegará a PENALES?</h3>
 
-                <span>Mundo</span>
+            <div class="apuesta-opciones dos-opciones">
 
-                <h3>Europa presenta nuevas políticas económicas.</h3>
+                <div class="apuesta-opcion">
+                    <span>Sí</span>
+                    <strong>1.20</strong>
+                </div>
 
-                <p>
-                    Los mercados reaccionan positivamente a los nuevos anuncios.
-                </p>
+                <div class="apuesta-opcion">
+                    <span>No</span>
+                    <strong>3.00</strong>
+                </div>
 
+            </div>
+
+        </article>
+
+        <div class="referencia-probabilidades">
+
+            <strong>Sobre las probabilidades indicadas en la referencia:</strong>
+
+            <p>
+                Davoo tendría una pequeña probabilidad de acertar
+                15 de 19 juegos; la imagen señala un
+                <strong>80 %</strong> de probabilidad de no acertar
+                esa marca, un <strong>10 %</strong> de llegar a
+                FUTFACTOS y un <strong>90 %</strong> de llegar a
+                penales. Estos porcentajes son información de
+                referencia, no pronósticos verificados.
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- =====================================
+         PESTAÑA 2: ESTADÍSTICA
+    ====================================== -->
+
+    <div id="panel-estadistica" class="aty-panel"
+         role="tabpanel" hidden>
+
+        <div class="pronosticos-titulo">
+            <span>02 / ESTADÍSTICA</span>
+            <h2>Probabilidades de referencia</h2>
+        </div>
+
+        <div class="estadistica-grid">
+
+            <article class="estadistica-card">
+                <span>01</span>
+                <h3>No acertar 15 de 19</h3>
+                <strong>80 %</strong>
+                <p>Probabilidad indicada en la imagen de referencia.</p>
             </article>
 
-            <article class="card">
-
-                <img src="img/noticia2.jpg">
-
-                <span>Deportes</span>
-
-                <h3>Comienza la nueva temporada con grandes sorpresas.</h3>
-
-                <p>
-                    Equipos favoritos debutan con resultados inesperados.
-                </p>
-
+            <article class="estadistica-card">
+                <span>02</span>
+                <h3>Llegar a FUTFACTOS</h3>
+                <strong>10 %</strong>
+                <p>Probabilidad indicada en la imagen de referencia.</p>
             </article>
 
-            <article class="card">
-
-                <img src="img/noticia3.jpg">
-
-                <span>Ciencia</span>
-
-                <h3>Descubren un nuevo método para almacenar energía.</h3>
-
-                <p>
-                    Investigadores logran mejorar la eficiencia de las baterías.
-                </p>
-
+            <article class="estadistica-card">
+                <span>03</span>
+                <h3>Llegar a penales</h3>
+                <strong>90 %</strong>
+                <p>Probabilidad indicada en la imagen de referencia.</p>
             </article>
 
-        </section>
+        </div>
 
-    </main>
+        <div class="referencia-probabilidades">
+            <strong>Información estadística</strong>
+            <p>
+                Los porcentajes mostrados son datos de referencia
+                proporcionados para esta sección. No representan
+                resultados comprobados ni estadísticas en tiempo real.
+            </p>
+        </div>
+
+    </div>
+
+    <!-- =====================================
+         PESTAÑA 3: LÍMITE
+    ====================================== -->
+
+    <div id="panel-limite" class="aty-panel"
+         role="tabpanel" hidden>
+
+        <div class="pronosticos-titulo">
+            <span>03 / LÍMITE</span>
+            <h2>Información de límites</h2>
+        </div>
+
+        <div class="limite-panel">
+
+            <div class="limite-icono">ⓘ</div>
+
+            <h3>Límites de apuesta</h3>
+
+            <p>
+                En esta sección se publicarán los límites
+                correspondientes a cada mercado de apuesta.
+            </p>
+
+            <div class="limite-aviso">
+                Los importes y condiciones oficiales se mostrarán
+                cuando estén definidos.
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+    <!-- ========================================= -->
+    <!-- ESTADÍSTICAS -->
+    <!-- ========================================= -->
+
+    <section class="estadisticas" id="estadisticas">
+
+        <h2>📊 Estadísticas del sitio</h2>
+
+        <div class="panel-estadisticas">
+
+            <div class="tarjeta">
+                <h3>👥 Total</h3>
+                <span id="total">0</span>
+            </div>
+
+            <div class="tarjeta">
+                <h3>📅 Hoy</h3>
+                <span id="hoy">0</span>
+            </div>
+
+            <div class="tarjeta">
+                <h3>📆 Mes</h3>
+                <span id="mes">0</span>
+            </div>
+
+            <div class="tarjeta">
+                <h3>🗓️ Año</h3>
+                <span id="anioMini">0</span>
+            </div>
+
+        </div>
+
+        <div class="tablas">
+
+            <div>
+
+                <h3>🌍 Ranking de países</h3>
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+                            <th>País</th>
+                            <th>Visitas</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="rankingPaises"></tbody>
+
+                </table>
+
+            </div>
+
+            <div>
+
+                <h3>🏙️ Ranking de ciudades</h3>
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+                            <th>Ciudad</th>
+                            <th>Visitas</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="rankingCiudades"></tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+        <div class="ultima">
+
+            <h3>🕒 Última visita</h3>
+
+            <div id="ultimaVisita"></div>
+
+        </div>
+
+    </section>
+
+    
 
     <!-- ========================================= -->
     <!-- FOOTER -->
@@ -234,6 +604,7 @@
         </div>
 
     </footer>
+
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="script.js?v=1"></script>
