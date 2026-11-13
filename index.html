@@ -19,10 +19,156 @@
     <!-- CSS -->
     <link rel="stylesheet" href="styles.css">
     
+<!-- FONDO PERSONALIZADO ATY -->
+<style>
+    html {
+        min-height: 100%;
+    }
+
+    body {
+        position: relative;
+        isolation: isolate;
+        min-height: 100vh;
+        background: transparent !important;
+    }
+
+    body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        pointer-events: none;
+
+        background-image:
+            linear-gradient(
+                rgba(0, 0, 0, 0.38),
+                rgba(0, 0, 0, 0.48)
+            ),
+            url("./img/fondo.jpg");
+
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+    }
+</style>
+
+    
 
 </head>
 
+
+
+
+
 <body>
+
+    <!-- =================================
+     MODAL DE APUESTAS ATY
+================================= -->
+
+<div id="modalApuesta"
+     class="modal-apuesta"
+     style="display: none;">
+
+    <div class="modal-apuesta-contenido">
+
+        <button type="button" id="cerrarApuesta"
+                class="cerrar-apuesta">&times;</button>
+
+        <span class="modal-etiqueta">ATY / CONFIRMACIÓN</span>
+
+        <h2>¡Tu selección está lista!</h2>
+
+        <p class="modal-descripcion">
+            Sigue las instrucciones para realizar tu pago por Yape.
+        </p>
+
+        
+<!-- AVISO DE LIMITES -->
+<div class="aviso-limites">
+    <p>⚠️ MÁXIMO S/ 10 SOLES Y MINIMO S/ 2 SOLES POR APUESTA </p>
+    <p>⚠️ MÁXIMO 10 APUESTAS</p>
+
+    <small>
+        Dependiendo de la demanda, se comunicará por medio
+        de un mensaje en la página si se aumentará el límite
+        de apuestas y la cantidad permitida.
+    </small>
+</div>
+
+
+        <div class="resumen-apuesta">
+
+            <span>Tu apuesta</span>
+            <strong id="modalPregunta">Pregunta seleccionada</strong>
+
+            <div class="resumen-datos">
+                <div>
+                    <small>Opción</small>
+                    <strong id="modalOpcion">Sí</strong>
+                </div>
+
+                <div>
+                    <small>Cuota</small>
+                    <strong id="modalCuota">2.00</strong>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="instrucciones-yape">
+
+            <h3>Instrucciones de pago</h3>
+
+            <p>
+                1. Abre tu aplicación Yape.
+            </p>
+
+            <p>
+                2. Envía el pago al siguiente número:
+            </p>
+
+            <div class="numero-yape">
+                <strong id="numeroYape">TU NUMERO DE YAPE</strong>
+            </div>
+
+            <p>
+                3. En el mensaje de Yape escribe tu número
+                de celular, la cuota y la opción que escogiste.
+            </p>
+
+        </div>
+
+        <label for="celularApostador">
+            Tu número de celular
+        </label>
+
+        <input
+            type="tel"
+            id="celularApostador"
+            placeholder="Ejemplo: 999888777"
+            maxlength="15"
+        >
+
+        <div class="mensaje-yape">
+            <small>MENSAJE QUE DEBES ESCRIBIR EN YAPE</small>
+            <p id="textoMensajeYape">
+                Mi número: - | Opción: - | Cuota: -
+            </p>
+        </div>
+
+        <button type="button" id="copiarMensajeYape"
+                class="boton-copiar-yape">
+            COPIAR MENSAJE
+        </button>
+
+        <p class="nota-yape">
+            Verifica los datos antes de realizar cualquier pago.
+        </p>
+
+    </div>
+
+</div>
 
     <!-- ========================================= -->
     <!-- HEADER -->
@@ -34,10 +180,16 @@
 
             <div class="date" id="fecha"></div>
 
-            <div class="logo">
-                <img src="img/favicon.png" alt="Logo ATY">
-                <h1>Apuesta Total Yape</h1>
-            </div>
+            
+<div class="logo">
+    <img src="img/favicon.png" alt="Logo ATY">
+
+    <div class="logo-texto">
+        <h1>Apuesta Total Yape</h1>
+        <span class="aviso-peru">VALIDO SOLO PARA PERÚ</span>
+    </div>
+</div>
+
 
             <div class="account">
 
@@ -135,7 +287,7 @@
     </ul>
 </li>
 
-        <li><a href="#contactanos">Contáctanos</a></li>
+        <li><a href="#contacto">Contáctanos</a></li>
 
     </ul>
 </nav>
@@ -229,239 +381,269 @@
      ATY - CUOTAS, ESTADÍSTICA Y LÍMITE
 ========================================= -->
 
+
 <section id="cuotas" class="seccion cuotas">
 
     <!-- PESTAÑAS -->
-    <div class="aty-tabs" role="tablist" aria-label="Secciones ATY">
+    <div class="aty-tabs" role="tablist">
 
         <button class="aty-tab activo"
                 type="button"
                 role="tab"
                 aria-selected="true"
-                aria-controls="panel-cuotas"
-                data-tab="panel-cuotas">
-            Cuotas
+                aria-controls="panel-futbol11"
+                data-tab="panel-futbol11">
+            Fútbol 11
         </button>
 
         <button class="aty-tab"
                 type="button"
                 role="tab"
                 aria-selected="false"
-                aria-controls="panel-estadistica"
-                data-tab="panel-estadistica">
-            Estadística
+                aria-controls="panel-luzu"
+                data-tab="panel-luzu">
+            LUZU VS 412
         </button>
 
         <button class="aty-tab"
                 type="button"
                 role="tab"
                 aria-selected="false"
-                aria-controls="panel-limite"
-                data-tab="panel-limite">
-            Límite
+                aria-controls="panel-lacobra"
+                data-tab="panel-lacobra">
+            LaCobra
         </button>
 
     </div>
 
-    <!-- =====================================
-         PESTAÑA 1: CUOTAS
-    ====================================== -->
 
-    <div id="panel-cuotas" class="aty-panel activo" role="tabpanel">
+    
+<!-- FÚTBOL 11 -->
+<div id="panel-futbol11" class="aty-panel activo" role="tabpanel">
 
-        <div class="pronosticos-titulo">
-            <span>01 / PRONÓSTICOS</span>
-            <h2>Mercados de la apuesta</h2>
-        </div>
-
-        <!-- APUESTA 01 -->
-
-        <article class="apuesta-card">
-
-            <div class="apuesta-cabecera">
-                <span>APUESTA 01</span>
-                <small>FÚTBOL 11</small>
-            </div>
-
-            <h3>¿Davoo acertará 15 de 19 juegos en el Fútbol 11?</h3>
-
-            <div class="apuesta-opciones">
-
-                <div class="apuesta-opcion">
-                    <span>Sí</span>
-                    <strong>3.00</strong>
-                </div>
-
-                <div class="apuesta-opcion">
-                    <span>No</span>
-                    <strong>1.50</strong>
-                </div>
-
-                <div class="apuesta-opcion opcion-empate">
-                    <span>
-                        Empate
-                        <small>Devolverá puntos</small>
-                    </span>
-                    <strong>4.00</strong>
-                </div>
-
-            </div>
-
-        </article>
-
-        <!-- APUESTA 02 -->
-
-        <article class="apuesta-card">
-
-            <div class="apuesta-cabecera">
-                <span>APUESTA 02</span>
-                <small>FUTFACTOS</small>
-            </div>
-
-            <h3>¿Llegará a FUTFACTOS?</h3>
-
-            <div class="apuesta-opciones dos-opciones">
-
-                <div class="apuesta-opcion">
-                    <span>Sí</span>
-                    <strong>3.00</strong>
-                </div>
-
-                <div class="apuesta-opcion">
-                    <span>No</span>
-                    <strong>1.50</strong>
-                </div>
-
-            </div>
-
-        </article>
-
-        <!-- APUESTA 03 -->
-
-        <article class="apuesta-card">
-
-            <div class="apuesta-cabecera">
-                <span>APUESTA 03</span>
-                <small>DESEMPATE</small>
-            </div>
-
-            <h3>¿Llegará a PENALES?</h3>
-
-            <div class="apuesta-opciones dos-opciones">
-
-                <div class="apuesta-opcion">
-                    <span>Sí</span>
-                    <strong>1.20</strong>
-                </div>
-
-                <div class="apuesta-opcion">
-                    <span>No</span>
-                    <strong>3.00</strong>
-                </div>
-
-            </div>
-
-        </article>
-
-        <div class="referencia-probabilidades">
-
-            <strong>Sobre las probabilidades indicadas en la referencia:</strong>
-
-            <p>
-                Davoo tendría una pequeña probabilidad de acertar
-                15 de 19 juegos; la imagen señala un
-                <strong>80 %</strong> de probabilidad de no acertar
-                esa marca, un <strong>10 %</strong> de llegar a
-                FUTFACTOS y un <strong>90 %</strong> de llegar a
-                penales. Estos porcentajes son información de
-                referencia, no pronósticos verificados.
-            </p>
-
-        </div>
-
+    <div class="pronosticos-titulo">
+        <span>01 / FÚTBOL 11</span>
+        <h2>Mercados de la apuesta</h2>
     </div>
 
-    <!-- =====================================
-         PESTAÑA 2: ESTADÍSTICA
-    ====================================== -->
+    <!-- APUESTA 01 -->
+    <article class="apuesta-card">
 
-    <div id="panel-estadistica" class="aty-panel"
-         role="tabpanel" hidden>
-
-        <div class="pronosticos-titulo">
-            <span>02 / ESTADÍSTICA</span>
-            <h2>Probabilidades de referencia</h2>
+        <div class="apuesta-cabecera">
+            <span>APUESTA 01</span>
+            <small>FÚTBOL 11</small>
         </div>
 
-        <div class="estadistica-grid">
+        <h3>¿Davoo acertará 15 de 19 juegos?</h3>
 
-            <article class="estadistica-card">
-                <span>01</span>
-                <h3>No acertar 15 de 19</h3>
-                <strong>80 %</strong>
-                <p>Probabilidad indicada en la imagen de referencia.</p>
-            </article>
+        <div class="apuesta-opciones">
 
-            <article class="estadistica-card">
-                <span>02</span>
-                <h3>Llegar a FUTFACTOS</h3>
-                <strong>10 %</strong>
-                <p>Probabilidad indicada en la imagen de referencia.</p>
-            </article>
+            <div class="apuesta-opcion">
+                <span>Sí</span>
+                <strong>2.00</strong>
+            </div>
 
-            <article class="estadistica-card">
-                <span>03</span>
-                <h3>Llegar a penales</h3>
-                <strong>90 %</strong>
-                <p>Probabilidad indicada en la imagen de referencia.</p>
-            </article>
+            <div class="apuesta-opcion">
+                <span>No</span>
+                <strong>1.50</strong>
+            </div>
 
-        </div>
-
-        <div class="referencia-probabilidades">
-            <strong>Información estadística</strong>
-            <p>
-                Los porcentajes mostrados son datos de referencia
-                proporcionados para esta sección. No representan
-                resultados comprobados ni estadísticas en tiempo real.
-            </p>
-        </div>
-
-    </div>
-
-    <!-- =====================================
-         PESTAÑA 3: LÍMITE
-    ====================================== -->
-
-    <div id="panel-limite" class="aty-panel"
-         role="tabpanel" hidden>
-
-        <div class="pronosticos-titulo">
-            <span>03 / LÍMITE</span>
-            <h2>Información de límites</h2>
-        </div>
-
-        <div class="limite-panel">
-
-            <div class="limite-icono">ⓘ</div>
-
-            <h3>Límites de apuesta</h3>
-
-            <p>
-                En esta sección se publicarán los límites
-                correspondientes a cada mercado de apuesta.
-            </p>
-
-            <div class="limite-aviso">
-                Los importes y condiciones oficiales se mostrarán
-                cuando estén definidos.
+            <div class="apuesta-opcion opcion-empate">
+                <span>Empate</span>
+                <strong>3.00</strong>
             </div>
 
         </div>
 
+    </article>
+
+    <!-- APUESTA 02 -->
+    <article class="apuesta-card">
+
+        <div class="apuesta-cabecera">
+            <span>APUESTA 02</span>
+            <small>FÚTBOL 11</small>
+        </div>
+
+        <h3>Si Davo jugara FutFactos ¿Lo ganaria?</h3>
+
+        <div class="apuesta-opciones">
+
+            <div class="apuesta-opcion">
+                <span>Sí</span>
+                <strong>1.50</strong>
+            </div>
+
+            <div class="apuesta-opcion">
+                <span>No</span>
+                <strong>1.70</strong>
+            </div>
+
+        </div>
+
+    </article>
+
+    <!-- APUESTA 03 -->
+    <article class="apuesta-card">
+
+        <div class="apuesta-cabecera">
+            <span>APUESTA 03</span>
+            <small>FÚTBOL 11</small>
+        </div>
+
+        <h3>¿Davoo ganara en los penales?</h3>
+
+        <div class="apuesta-opciones">
+
+            <div class="apuesta-opcion">
+                <span>Sí</span>
+                <strong>1.50</strong>
+            </div>
+
+            <div class="apuesta-opcion">
+                <span>No</span>
+                <strong>1.50</strong>
+            </div>
+
+        </div>
+
+    </article>
+
+</div>
+
+
+
+    
+<!-- LUZU VS 412 -->
+<div id="panel-luzu" class="aty-panel"
+     role="tabpanel" hidden>
+
+    <div class="pronosticos-titulo">
+        <span>02 / LUZU VS 412</span>
+        <h2>Mercados de la apuesta</h2>
     </div>
 
-</section>
+    <!-- APUESTA 01 -->
+    <article class="apuesta-card">
+
+        <div class="apuesta-cabecera">
+            <span>APUESTA 01</span>
+            <small>LUZU VS 412</small>
+        </div>
+
+        <h3>¿Quien ganara El Gran Partido del Streaming: La Revancha?</h3>
+
+        <div class="apuesta-opciones">
+
+            <div class="apuesta-opcion">
+                <span>412</span>
+                <strong>1.80</strong>
+            </div>
+
+            <div class="apuesta-opcion">
+                <span>Luzu</span>
+                <strong>1.50</strong>
+            </div>
+
+        </div>
+
+    </article>
+
+    <!-- APUESTA 02 -->
+    <article class="apuesta-card">
+
+        <div class="apuesta-cabecera">
+            <span>APUESTA 02</span>
+            <small>LUZU VS 412</small>
+        </div>
+
+        <h3>Si hubiera penales ¿Quien ganaria?</h3>
+
+        <div class="apuesta-opciones">
+
+            <div class="apuesta-opcion">
+                <span>412</span>
+                <strong>2.00</strong>
+            </div>
+
+            <div class="apuesta-opcion">
+                <span>Luzu</span>
+                <strong>1.50</strong>
+            </div>
+
+        </div>
+
+    </article>
+
+</div>
+
+
+
+    
+<!-- LACOBRA -->
+<div id="panel-lacobra" class="aty-panel"
+     role="tabpanel" hidden>
+
+    <div class="pronosticos-titulo">
+        <span>03 / LACOBRA</span>
+        <h2>Mercados de la apuesta</h2>
+    </div>
+
+    <!-- APUESTA 01 -->
+    <article class="apuesta-card">
+
+        <div class="apuesta-cabecera">
+            <span>APUESTA 01</span>
+            <small>LACOBRA</small>
+        </div>
+
+        <h3>¿LaCobra metera 2 goles o mas?</h3>
+
+        <div class="apuesta-opciones">
+
+            <div class="apuesta-opcion">
+                <span>Sí</span>
+                <strong>2.00</strong>
+            </div>
+
+            <div class="apuesta-opcion">
+                <span>No</span>
+                <strong>1.50</strong>
+            </div>
+
+        </div>
+
+    </article>
+
+    <!-- APUESTA 02 -->
+    <article class="apuesta-card">
+
+        <div class="apuesta-cabecera">
+            <span>APUESTA 02</span>
+            <small>LACOBRA</small>
+        </div>
+
+        <h3>Si se llegara a los penales, ¿LaCobra fallara algun penal?</h3>
+
+        <div class="apuesta-opciones">
+
+            <div class="apuesta-opcion">
+                <span>Sí</span>
+                <strong>1.50</strong>
+            </div>
+
+            <div class="apuesta-opcion">
+                <span>No</span>
+                <strong>2.00</strong>
+            </div>
+
+        </div>
+
+    </article>
+
+</div>
+
+
 
 
     <!-- ========================================= -->
@@ -554,64 +736,66 @@
 
     
 
-    <!-- ========================================= -->
-    <!-- FOOTER -->
-    <!-- ========================================= -->
+<!-- ========================================= -->
+<!-- FOOTER ATY -->
+<!-- ========================================= -->
 
-    <footer>
-
-        <div class="footer-container">
-
-            <div class="footer-logo">
-
-                <h2>Daily Chronicle</h2>
-
-                <p>
-                    Noticias, análisis y reportajes de actualidad todos los días.
-                </p>
-
-            </div>
-
-            <div class="footer-links">
-
-                <h3>Secciones</h3>
-
-                <a href="#">Inicio</a>
-                <a href="#">Mundo</a>
-                <a href="#">Economía</a>
-                <a href="#">Tecnología</a>
-                <a href="#">Deportes</a>
-
-            </div>
-
-            <div class="footer-links">
-
-                <h3>Empresa</h3>
-
-                <a href="#">Nosotros</a>
-                <a href="#">Contacto</a>
-                <a href="#">Publicidad</a>
-                <a href="#">Privacidad</a>
-
-            </div>
-
-        </div>
-
-        <div class="copyright">
-
-            © 2026 Daily Chronicle. Todos los derechos reservados.
-
-        </div>
-
-    </footer>
+<footer>
 
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="script.js?v=1"></script>
+    <!-- FORMULARIO DE CONTACTO -->
 
-    <script data-goatcounter="https://eddketz.goatcounter.com/count"
-        async src="//gc.zgo.at/count.js"></script>
+    <section class="contacto" id="contacto">
 
+        <h2>📩 Contáctanos</h2>
+
+        <p>
+            Completa el formulario y envíanos tu mensaje.
+        </p>
+
+        <form action="https://formspree.io/f/mgakwyzq"
+              method="POST">
+
+            <input
+                type="text"
+                name="nombre"
+                placeholder="Tu nombre"
+                required>
+
+            <input
+                type="email"
+                name="email"
+                placeholder="Tu correo electrónico"
+                required>
+
+            <input
+                type="text"
+                name="asunto"
+                placeholder="Asunto"
+                required>
+
+            <textarea
+                name="mensaje"
+                placeholder="Escribe tu mensaje aquí..."
+                rows="5"
+                required></textarea>
+
+            <button type="submit">
+                Enviar mensaje
+            </button>
+
+        </form>
+
+    </section>
+
+    <div class="copyright">
+        © 2026 Apuesta Total Yape. Todos los derechos reservados.
+    </div>
+
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="script.js"></script>
 </body>
-
 </html>
