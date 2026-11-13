@@ -289,51 +289,43 @@ setInterval(async () => {
 
 }, 30000);
 
+
 // ===============================
 // MODAL ESTADÍSTICAS
 // ===============================
 
 const modal = document.getElementById("modalEstadisticas");
-
 const abrir = document.getElementById("abrirEstadisticas");
-
 const cerrar = document.getElementById("cerrarModal");
 
-// Abrir ventana
-abrir.addEventListener("click", function (e) {
+if (modal && abrir && cerrar) {
 
-    e.preventDefault();
+    abrir.addEventListener("click", function (e) {
+        e.preventDefault();
+        modal.style.display = "flex";
+        mostrarEstadisticas();
+    });
 
-    modal.style.display = "flex";
-
-    mostrarEstadisticas();
-
-});
-
-// Cerrar con la X
-cerrar.addEventListener("click", function () {
-
-    modal.style.display = "none";
-
-});
-
-// Cerrar haciendo clic fuera
-window.addEventListener("click", function (e) {
-
-    if (e.target === modal) {
-
+    cerrar.addEventListener("click", function () {
         modal.style.display = "none";
+    });
 
-    }
+    window.addEventListener("click", function (e) {
+        if (e.target === modal) {
+            modal.style.display = "none";
+        }
+    });
 
-});
+}
+
+
 
 
 /* =========================================
    NAVEGACIÓN DE PESTAÑAS ATY
 ========================================= */
 
-document.addEventListener("DOMContentLoaded", function () {
+function iniciarPestanasATY() {
 
     const botones = document.querySelectorAll(".aty-tab");
     const paneles = document.querySelectorAll(".aty-panel");
@@ -354,18 +346,161 @@ document.addEventListener("DOMContentLoaded", function () {
                 panel.hidden = true;
             });
 
+            const panelActivo = document.getElementById(destino);
+
+            if (!panelActivo) {
+                console.error("No existe el panel:", destino);
+                return;
+            }
+
             boton.classList.add("activo");
             boton.setAttribute("aria-selected", "true");
 
-            const panelActivo = document.getElementById(destino);
-
-            if (panelActivo) {
-                panelActivo.hidden = false;
-                panelActivo.classList.add("activo");
-            }
+            panelActivo.hidden = false;
+            panelActivo.classList.add("activo");
 
         });
 
     });
+
+}
+
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", iniciarPestanasATY);
+} else {
+    iniciarPestanasATY();
+}
+
+
+
+
+/* =====================================
+   ATY - MODAL DE APUESTAS YAPE
+===================================== */
+
+document.addEventListener("click", function(e) {
+
+    const opcion = e.target.closest(
+        "#cuotas .apuesta-opcion"
+    );
+
+    if (!opcion) return;
+
+    const modal = document.getElementById("modalApuesta");
+
+    if (!modal) {
+        console.error("No se encuentra el modal de apuestas");
+        return;
+    }
+
+    const tarjeta = opcion.closest(".apuesta-card");
+
+    const titulo = tarjeta.querySelector("h3");
+    const nombreOpcion = opcion.querySelector("span");
+    const cuota = opcion.querySelector("strong");
+
+    if (!nombreOpcion || !cuota) return;
+
+    const pregunta = titulo
+        ? titulo.textContent.trim()
+        : "Apuesta ATY";
+
+    const opcionElegida = nombreOpcion.textContent.trim();
+    const cuotaElegida = cuota.textContent.trim();
+
+    document.getElementById("modalPregunta").textContent = pregunta;
+    document.getElementById("modalOpcion").textContent = opcionElegida;
+    document.getElementById("modalCuota").textContent = cuotaElegida;
+
+    const celular = document.getElementById("celularApostador");
+    const mensaje = document.getElementById("textoMensajeYape");
+    const copiar = document.getElementById("copiarMensajeYape");
+
+    const numeroYape = document.getElementById("numeroYape");
+
+    numeroYape.textContent = "TU NUMERO DE YAPE";
+
+    function actualizarMensaje() {
+        mensaje.textContent =
+            "Mi número: " + (celular.value.trim() || "-") +
+            " | Opción: " + opcionElegida +
+            " | Cuota: " + cuotaElegida +
+            " | Apuesta: " + pregunta;
+    }
+
+    actualizarMensaje();
+
+    copiar.textContent = "COPIAR MENSAJE";
+
+    modal.style.display = "flex";
+    document.body.style.overflow = "hidden";
+
+});
+
+// CERRAR MODAL
+document.addEventListener("click", function(e) {
+
+    if (e.target.closest("#cerrarApuesta")) {
+        cerrarModalATY();
+    }
+
+    if (e.target.id === "modalApuesta") {
+        cerrarModalATY();
+    }
+
+});
+
+function cerrarModalATY() {
+    const modal = document.getElementById("modalApuesta");
+
+    modal.style.display = "none";
+    document.body.style.overflow = "";
+}
+
+// CERRAR CON ESCAPE
+document.addEventListener("keydown", function(e) {
+    if (e.key === "Escape") {
+        cerrarModalATY();
+    }
+});
+
+// ACTUALIZAR MENSAJE AL ESCRIBIR
+document.addEventListener("input", function(e) {
+
+    if (e.target.id !== "celularApostador") return;
+
+    const opcion = document.getElementById("modalOpcion").textContent;
+    const cuota = document.getElementById("modalCuota").textContent;
+    const pregunta = document.getElementById("modalPregunta").textContent;
+
+    document.getElementById("textoMensajeYape").textContent =
+        "Mi número: " + (e.target.value.trim() || "-") +
+        " | Opción: " + opcion +
+        " | Cuota: " + cuota +
+        " | Apuesta: " + pregunta;
+
+});
+
+// COPIAR MENSAJE
+document.addEventListener("click", async function(e) {
+
+    if (!e.target.closest("#copiarMensajeYape")) return;
+
+    const celular = document.getElementById("celularApostador");
+    const mensaje = document.getElementById("textoMensajeYape");
+    const boton = document.getElementById("copiarMensajeYape");
+
+    if (!celular.value.trim()) {
+        alert("Primero escribe tu número de celular.");
+        celular.focus();
+        return;
+    }
+
+    try {
+        await navigator.clipboard.writeText(mensaje.textContent);
+        boton.textContent = "¡MENSAJE COPIADO!";
+    } catch (error) {
+        alert("No se pudo copiar el mensaje. Inténtalo desde una conexión segura.");
+    }
 
 });
