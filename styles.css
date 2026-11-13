@@ -1922,3 +1922,571 @@ footer{
         grid-template-columns: 1fr;
     }
 }
+
+
+/* =========================================
+   CONTACTO ATY
+========================================= */
+
+.contacto {
+    max-width: 650px;
+    margin: 40px auto;
+    padding: 30px 20px;
+    text-align: center;
+    color: white;
+}
+
+.contacto h2 {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.contacto p {
+    margin-bottom: 25px;
+    color: #cccccc;
+}
+
+.contacto form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.contacto input,
+.contacto textarea {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #444;
+    border-radius: 8px;
+    background: #1c1c1c;
+    color: white;
+    font-size: 15px;
+    box-sizing: border-box;
+}
+
+.contacto button {
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    background: #16a34a;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.contacto button:hover {
+    background: #15803d;
+}
+
+footer {
+    scroll-margin-top: 20px;
+}
+
+#contacto {
+    scroll-margin-top: 30px;
+}
+
+
+/* =========================================
+   ATY - CORRECCIÓN GENERAL DEFINITIVA
+========================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+/* CONTENEDOR DE CUOTAS */
+
+#cuotas.cuotas {
+    display: block !important;
+    width: calc(100% - 30px);
+    max-width: 1250px;
+    margin: 35px auto;
+    padding: 30px;
+    background: #0b1220;
+    color: white;
+    border-radius: 18px;
+}
+
+/* PESTAÑAS */
+
+#cuotas .aty-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    width: 100%;
+    margin-bottom: 25px;
+}
+
+#cuotas .aty-tab {
+    flex: 0 1 auto;
+    min-width: 110px;
+    cursor: pointer;
+}
+
+/* PANELES */
+
+#cuotas .aty-panel {
+    display: none;
+    width: 100%;
+}
+
+#cuotas .aty-panel.activo {
+    display: block !important;
+}
+
+#cuotas .aty-panel[hidden] {
+    display: none !important;
+}
+
+/* TARJETAS */
+
+#cuotas .apuesta-card {
+    width: 100%;
+    min-width: 0;
+    margin-bottom: 18px;
+}
+
+/* OPCIONES */
+
+#cuotas .apuesta-opciones {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+}
+
+#cuotas .apuesta-opciones.dos-opciones {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+#cuotas .apuesta-opcion {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+/* ESTADÍSTICAS */
+
+#cuotas .estadistica-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 15px;
+}
+
+/* MENÚ DESPLEGABLE */
+
+.dropdown {
+    position: relative;
+}
+
+.dropdown:hover > .submenu,
+.dropdown:focus-within > .submenu {
+    display: flex;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 768px) {
+
+    #cuotas.cuotas {
+        width: calc(100% - 20px);
+        padding: 18px 13px;
+        margin: 20px auto;
+    }
+
+    #cuotas .aty-tabs {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 6px;
+    }
+
+    #cuotas .aty-tab {
+        min-width: 0;
+        padding: 12px 5px;
+        font-size: 12px;
+    }
+
+    #cuotas .apuesta-opciones {
+        grid-template-columns: 1fr;
+    }
+
+    #cuotas .apuesta-opciones.dos-opciones {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    #cuotas .estadistica-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .deposito-contenido {
+        grid-template-columns: 1fr;
+    }
+
+    .hero {
+        grid-template-columns: 1fr;
+        padding: 0 15px;
+    }
+
+    .top-bar {
+        padding: 15px;
+    }
+
+    nav ul {
+        padding: 15px;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+}
+
+@media (max-width: 380px) {
+
+    #cuotas .apuesta-opciones.dos-opciones {
+        grid-template-columns: 1fr;
+    }
+
+    #cuotas .aty-tab {
+        font-size: 11px;
+    }
+
+}
+
+
+/* =========================================
+   CORREGIR BRILLO DE LAS PESTAÑAS ATY
+========================================= */
+
+/* Estado normal: ninguna pestaña iluminada */
+#cuotas .aty-tab {
+    background: transparent !important;
+    color: #aab8ca;
+    border: 1px solid transparent;
+    box-shadow: none !important;
+    transition: all 0.25s ease;
+}
+
+/* Brillo únicamente al pasar el mouse */
+#cuotas .aty-tab:hover {
+    color: #a3e635 !important;
+    background: #192940 !important;
+    border-color: #a3e635 !important;
+    box-shadow: 0 0 12px rgba(163, 230, 53, 0.45) !important;
+    transform: translateY(-2px);
+}
+
+/* La pestaña activa no debe quedarse brillando */
+#cuotas .aty-tab.activo {
+    background: transparent !important;
+    color: #aab8ca !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
+    transform: none;
+}
+
+/* Mantener el brillo solo con el mouse */
+@media (hover: hover) {
+    #cuotas .aty-tab.activo:hover {
+        color: #a3e635 !important;
+        background: #192940 !important;
+        border-color: #a3e635 !important;
+        box-shadow: 0 0 12px rgba(163, 230, 53, 0.45) !important;
+        transform: translateY(-2px);
+    }
+}
+
+
+/* =========================================
+   ATY - BRILLO SOLO AL PASAR EL MOUSE
+   OPCIONES: SI / NO / EMPATE
+========================================= */
+
+/* Estado normal: ninguna opción iluminada */
+#cuotas .apuesta-opcion,
+#cuotas .apuesta-opcion.opcion-empate {
+    background: #1c2b40 !important;
+    border: 1px solid #354760 !important;
+    box-shadow: none !important;
+    transform: none;
+    transition: all 0.25s ease;
+}
+
+/* Brillo únicamente al pasar el mouse */
+@media (hover: hover) {
+    #cuotas .apuesta-opcion:hover {
+        background: #1e332c !important;
+        border: 2px solid #a3e635 !important;
+        box-shadow: 0 0 14px rgba(163, 230, 53, 0.4) !important;
+        transform: translateY(-2px);
+    }
+}
+
+
+/* =====================================
+   ATY - VENTANA EMERGENTE YAPE
+===================================== */
+
+#modalApuesta {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 999999;
+    background: rgba(3, 8, 18, 0.88);
+    backdrop-filter: blur(8px);
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+}
+
+#modalApuesta .modal-apuesta-contenido {
+    position: relative;
+    width: 100%;
+    max-width: 450px;
+    max-height: 90vh;
+    overflow-y: auto;
+    background: #0b1220;
+    color: #fff;
+    border: 1px solid #293950;
+    border-radius: 18px;
+    padding: 28px;
+    box-shadow: 0 0 35px rgba(0,0,0,.5);
+    animation: aparecerATY .25s ease;
+}
+
+@keyframes aparecerATY {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(.96);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+#modalApuesta .cerrar-apuesta {
+    position: absolute;
+    top: 12px;
+    right: 17px;
+    background: transparent;
+    border: none;
+    color: #aab8ca;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+#modalApuesta .modal-etiqueta,
+#modalApuesta .mensaje-yape small {
+    color: #a3e635;
+    font-weight: 800;
+}
+
+#modalApuesta .resumen-apuesta,
+#modalApuesta .mensaje-yape {
+    background: #142136;
+    border: 1px solid #293950;
+    border-radius: 10px;
+    padding: 16px;
+    margin: 18px 0;
+}
+
+#modalApuesta .resumen-datos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 15px;
+}
+
+#modalApuesta .resumen-datos div {
+    background: #1c2b40;
+    padding: 12px;
+    border-radius: 8px;
+}
+
+#modalApuesta .resumen-datos strong {
+    display: block;
+    color: #a3e635;
+    font-size: 21px;
+}
+
+#modalApuesta .instrucciones-yape p,
+#modalApuesta .modal-descripcion {
+    color: #cbd5e1;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+#modalApuesta .numero-yape {
+    background: #1c2b40;
+    border: 1px dashed #a3e635;
+    border-radius: 9px;
+    padding: 14px;
+    text-align: center;
+    color: #a3e635;
+    margin: 12px 0;
+}
+
+#modalApuesta label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 13px;
+}
+
+#modalApuesta #celularApostador {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 13px;
+    border-radius: 8px;
+    background: #1c2b40;
+    color: white;
+    border: 1px solid #354760;
+    margin-bottom: 15px;
+}
+
+#modalApuesta .boton-copiar-yape {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 9px;
+    background: #a3e635;
+    color: #08111f;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+#modalApuesta .nota-yape {
+    color: #8291a6;
+    font-size: 11px;
+    text-align: center;
+}
+
+@media(max-width: 480px) {
+    #modalApuesta .modal-apuesta-contenido {
+        padding: 22px 17px;
+    }
+}
+
+
+/* FONDO PRINCIPAL DE LA PÁGINA */
+body {
+    position: relative;
+    background: transparent !important;
+    min-height: 100vh;
+}
+
+/* Imagen de fondo */
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+
+    background-image:
+        linear-gradient(
+            rgba(0, 0, 0, 0.25),
+            rgba(0, 0, 0, 0.25)
+        ),
+        url("./img/fondo.jpg");
+
+    background-size: auto;
+    background-position: left center;
+    background-repeat: no-repeat;
+}
+
+
+/* TEXTO DEBAJO DEL TITULO */
+.logo-texto {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+}
+
+.aviso-peru {
+    color: #20d65a;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+
+/* CORREGIR ESPACIADO DEL SUBMENU */
+nav ul li.dropdown {
+    position: relative;
+}
+
+nav ul li.dropdown .submenu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+
+    min-width: 220px;
+    height: auto;
+    margin: 0;
+    padding: 6px 0;
+
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 0;
+
+    background: #fff;
+    z-index: 9999;
+}
+
+nav ul li.dropdown:hover > .submenu {
+    display: flex;
+}
+
+nav ul li.dropdown .submenu li {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li.dropdown .submenu li a {
+    display: block;
+    width: 100%;
+    height: auto;
+    box-sizing: border-box;
+
+    padding: 12px 18px;
+    margin: 0;
+
+    line-height: 1.3;
+    white-space: normal;
+}
+
+
+/* AVISO ROJO DE LIMITES EN MODAL YAPE */
+.aviso-limites {
+    background: #fff0f0;
+    border: 1px solid #e00000;
+    border-radius: 8px;
+    padding: 12px;
+    margin: 15px 0;
+    text-align: center;
+}
+
+.aviso-limites p {
+    color: #e00000;
+    font-size: 13px;
+    font-weight: 900;
+    margin: 6px 0;
+}
+
+.aviso-limites small {
+    display: block;
+    color: #b00000;
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1.5;
+    margin-top: 9px;
+}
